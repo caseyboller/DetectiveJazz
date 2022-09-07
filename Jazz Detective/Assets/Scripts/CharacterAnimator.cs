@@ -12,6 +12,14 @@ public class CharacterAnimator : MonoBehaviour
     public Transform leftFootTarget;
     public float moveFootSpeed = 25f;
 
+    public Transform leftHandTarget;
+    public Transform rightHandTarget;
+    public Transform leftHand;
+    public Transform rightHand;
+    public float handBobSpeed = 1f;
+    public float handBobHeight = 5f;
+    public float moveHandSpeed = 25f;
+
     bool leftFootMoving = false;
     bool rightFootMoving = false;
 
@@ -21,23 +29,67 @@ public class CharacterAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         direction = new Vector3(horizontal, 0, vertical).normalized;
 
+        bool waving = false;
+        if (Input.GetKey(KeyCode.E))
+        {
+            waving = true;
+            Debug.Log("WAVING");
+        }
+
         if (direction.magnitude > 0.1f)
         {
             WalkFeet();
-        } else
+            BobHand(5f * handBobSpeed, leftHand, leftHandTarget.position - transform.forward * 1f);
+            if (!waving)
+            {
+                BobHand(5f * handBobSpeed, rightHand, rightHandTarget.position - transform.forward * 1f);
+            }
+            else
+            {
+                Wave();
+            }
+
+        }
+        else
         {
             StandFeet();
+            BobHand(handBobSpeed, leftHand, leftHandTarget.position);
+            if (!waving)
+            {
+                BobHand(handBobSpeed, rightHand, rightHandTarget.position);
+            }
+            else
+            {
+                Wave();
+            }
         }
+
+    }
+
+    private void Wave()
+    {
+        // TODO
+    }
+
+    private void BobHand(float handBobSpeed, Transform hand, Vector3 handTarget)
+    {
+        //get the objects current position and put it in a variable so we can access it later with less code
+        //calculate what the new Y position will be
+        float newY = Mathf.Sin(Time.time * handBobSpeed) * 0.1f;
+        Vector3 target = new Vector3(handTarget.x, handTarget.y + newY, handTarget.z);
+        //set the object's Y to the new calculated Y
+        hand.transform.position = Vector3.MoveTowards(hand.transform.position, target, Time.deltaTime * moveHandSpeed);
     }
 
     private void StandFeet()
