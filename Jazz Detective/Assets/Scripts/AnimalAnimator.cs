@@ -54,7 +54,6 @@ public class AnimalAnimator : MonoBehaviour
 
     private void StandFeet(ref Transform leftFoot, ref Transform rightFoot, ref Transform leftFootTarget, ref Transform rightFootTarget, ref bool leftFootMoving, ref bool rightFootMoving)
     {
-        Debug.Log("STANDING");
         if (!leftFootMoving)
         {
             if (rightFootMoving)
@@ -96,9 +95,6 @@ public class AnimalAnimator : MonoBehaviour
     {
         Vector3 rightWalkTarget = rightFootTarget.position + rightFootTarget.up * -0.5f;
         Vector3 leftWalkTarget = leftFootTarget.position + leftFootTarget.up * -0.5f;
-
-        Debug.Log("WALKING");
-
 
         if (!leftFootMoving)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    public Rigidbody controller;
     public Transform cam;
     public float speed = 5f;
     public float turnSmoothing = 0.1f;
@@ -33,7 +33,6 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            Debug.Log("LEANING");
             // Lean
             var leanAngle = Mathf.SmoothDampAngle(body.transform.eulerAngles.x, leanAmount, ref leanSmoothVel, leanSmoothing);
             body.localRotation = Quaternion.Euler(leanAngle, 0f, 0f);
@@ -46,7 +45,8 @@ public class ThirdPersonMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            controller.velocity = moveDir.normalized * speed;
+            Debug.Log(controller.velocity);
         } else
         {
             // Lean
