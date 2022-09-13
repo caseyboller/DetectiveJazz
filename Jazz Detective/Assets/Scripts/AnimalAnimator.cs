@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AnimalAnimator : MonoBehaviour
 {
+    public AnimalWander wander;
+
     public Transform frontRightFoot;
     public Transform frontLeftFoot;
     public Transform backRightFoot;
@@ -21,9 +23,6 @@ public class AnimalAnimator : MonoBehaviour
     bool backLeftFootMoving = false;
     bool backRightFootMoving = false;
 
-    public bool isMoving = false;
-
-    public float moveSpeed = 0.01f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,11 +44,6 @@ public class AnimalAnimator : MonoBehaviour
             StandFeet(ref backLeftFoot, ref backRightFoot, ref backLeftFootTarget, ref backRightFootTarget, ref backLeftFootMoving, ref backRightFootMoving);
         }
 
-        if (isMoving)
-        {
-            rb.MovePosition(rb.position + rb.transform.up * -moveSpeed);
-        }
-
     }
 
     private void StandFeet(ref Transform leftFoot, ref Transform rightFoot, ref Transform leftFootTarget, ref Transform rightFootTarget, ref bool leftFootMoving, ref bool rightFootMoving)
@@ -61,11 +55,11 @@ public class AnimalAnimator : MonoBehaviour
                 rightFoot.position = Vector3.MoveTowards(rightFoot.position, rightFootTarget.position, Time.deltaTime * moveFootSpeed);
             }
 
-            if (Vector3.Distance(rightFoot.position, rightFootTarget.position) > 0.2f)
+            if (Vector3.Distance(rightFoot.position, rightFootTarget.position) > 0.5f)
             {
                 rightFootMoving = true;
             }
-            else if (Vector3.Distance(rightFoot.position, rightFootTarget.position) < 0.05f)
+            else if (Vector3.Distance(rightFoot.position, rightFootTarget.position) < 0.1f)
             {
                 rightFootMoving = false;
             }
@@ -79,11 +73,11 @@ public class AnimalAnimator : MonoBehaviour
                 leftFoot.position = Vector3.MoveTowards(leftFoot.position, leftFootTarget.position, Time.deltaTime * moveFootSpeed);
             }
 
-            if (Vector3.Distance(leftFoot.position, leftFootTarget.position) > 0.2f)
+            if (Vector3.Distance(leftFoot.position, leftFootTarget.position) > 0.5f)
             {
                 leftFootMoving = true;
             }
-            else if (Vector3.Distance(leftFoot.position, leftFootTarget.position) < 0.05f)
+            else if (Vector3.Distance(leftFoot.position, leftFootTarget.position) < 0.1f)
             {
                 leftFootMoving = false;
             }
@@ -93,8 +87,8 @@ public class AnimalAnimator : MonoBehaviour
 
     private void WalkFeet(ref Transform leftFoot, ref Transform rightFoot, ref Transform leftFootTarget, ref Transform rightFootTarget, ref bool leftFootMoving, ref bool rightFootMoving)
     {
-        Vector3 rightWalkTarget = rightFootTarget.position + rightFootTarget.up * -0.5f;
-        Vector3 leftWalkTarget = leftFootTarget.position + leftFootTarget.up * -0.5f;
+        Vector3 rightWalkTarget = rightFootTarget.position + rightFootTarget.up * -1f;
+        Vector3 leftWalkTarget = leftFootTarget.position + leftFootTarget.up * -1f;
 
         if (!leftFootMoving)
         {
@@ -103,7 +97,7 @@ public class AnimalAnimator : MonoBehaviour
                 rightFoot.position = Vector3.MoveTowards(rightFoot.position, rightWalkTarget, Time.deltaTime * moveFootSpeed);
             }
 
-            if (Vector3.Distance(rightFoot.position, rightWalkTarget) > 1)
+            if (Vector3.Distance(rightFoot.position, rightWalkTarget) > 2)
             {
                 rightFootMoving = true;
             }
@@ -121,7 +115,7 @@ public class AnimalAnimator : MonoBehaviour
                 leftFoot.position = Vector3.MoveTowards(leftFoot.position, leftWalkTarget, Time.deltaTime * moveFootSpeed);
             }
 
-            if (Vector3.Distance(leftFoot.position, leftWalkTarget) > 1)
+            if (Vector3.Distance(leftFoot.position, leftWalkTarget) > 2)
             {
                 leftFootMoving = true;
             }
