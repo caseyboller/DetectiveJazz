@@ -20,6 +20,8 @@ public class CharacterAnimator : MonoBehaviour
     public float handBobHeight = 5f;
     public float moveHandSpeed = 25f;
 
+    public Transform waveTarget;
+
     bool leftFootMoving = false;
     bool rightFootMoving = false;
 
@@ -50,14 +52,14 @@ public class CharacterAnimator : MonoBehaviour
         if (direction.magnitude > 0.1f)
         {
             WalkFeet();
-            BobHand(5f * handBobSpeed, leftHand, leftHandTarget.position - transform.forward * 1f);
+                BobHand(5f * handBobSpeed, leftHand, leftHandTarget.position - transform.forward * 1f);
             if (!waving)
             {
                 BobHand(5f * handBobSpeed, rightHand, rightHandTarget.position - transform.forward * 1f);
             }
             else
             {
-                Wave();
+                Wave(5f * handBobSpeed, rightHand, waveTarget);
             }
 
         }
@@ -71,15 +73,20 @@ public class CharacterAnimator : MonoBehaviour
             }
             else
             {
-                Wave();
+                Wave(5f * handBobSpeed, rightHand, waveTarget);
             }
         }
 
     }
 
-    private void Wave()
+    private void Wave(float handBobSpeed, Transform hand, Transform handTarget)
     {
-        // TODO
+        //get the objects current position and put it in a variable so we can access it later with less code
+        //calculate what the new Y position will be
+        float newX = Mathf.Sin(Time.time * handBobSpeed) * 0.3f;
+        Vector3 target = handTarget.position + (handTarget.right * newX);
+        //set the object's Y to the new calculated Y
+        hand.transform.position = Vector3.MoveTowards(hand.transform.position, target, Time.deltaTime * moveHandSpeed);
     }
 
     private void BobHand(float handBobSpeed, Transform hand, Vector3 handTarget)

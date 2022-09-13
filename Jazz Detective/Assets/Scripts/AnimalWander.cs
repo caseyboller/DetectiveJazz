@@ -39,9 +39,11 @@ public class AnimalWander : MonoBehaviour
     {
         int rotTime = Random.Range(1, 3);
         int rotateWait = Random.Range(1, 4);
-        int rotateLorR = Random.Range(1, 2);
+        int rotateLorR = Random.Range(1, 3);
+        int rotateAndWalk = Random.Range(1, 3);
         int walkWait = Random.Range(1, 5);
         int walkTime = Random.Range(1, 6);
+
 
         isWandering = true;
 
@@ -50,14 +52,14 @@ public class AnimalWander : MonoBehaviour
         yield return new WaitForSeconds(walkTime);
         isWalking = false;
         yield return new WaitForSeconds(rotateWait);
-        isWalking = true;
+        isWalking = (rotateAndWalk == 1);
         if (rotateLorR == 1)
         {
             isRotatingRight = true;
             yield return new WaitForSeconds(rotTime);
             isRotatingRight = false;
         }
-        if (rotateLorR == 2)
+        else
         {
             isRotatingLeft = true;
             yield return new WaitForSeconds(rotTime);
