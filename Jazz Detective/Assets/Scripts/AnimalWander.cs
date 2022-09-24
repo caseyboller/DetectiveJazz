@@ -12,10 +12,17 @@ public class AnimalWander : MonoBehaviour
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     public bool isWalking = false;
+    public bool isSitting = false;
+    public bool isResettingRotation = false;
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isSitting || isResettingRotation)
+        {
+            return;
+        }
+
         if (isWandering == false)
         {
             StartCoroutine(Wander());
@@ -33,10 +40,32 @@ public class AnimalWander : MonoBehaviour
             transform.position += (transform.forward * moveSpeed * Time.fixedDeltaTime);
 
         }
+        
+    }
+    public void WatchJas()
+    {
+        if (!(isSitting || isResettingRotation))
+        {
+            StartCoroutine(SitTime());
+        }
+    }
+
+    IEnumerator SitTime()
+    {
+        isSitting = true;
+        yield return new WaitForSeconds(10);
+        isSitting = false;
+        isResettingRotation = true;
+        yield return new WaitForSeconds(5);
+        isResettingRotation = false;
     }
 
     IEnumerator Wander()
     {
+        if (isSitting)
+        {
+            yield break;
+        }
         int rotTime = Random.Range(1, 3);
         int rotateWait = Random.Range(1, 4);
         int rotateLorR = Random.Range(1, 3);
@@ -67,4 +96,5 @@ public class AnimalWander : MonoBehaviour
         }
         isWandering = false;
     }
+
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
+    public AnimalWander[] dogs;
 
     public GameObject rightFoot;
     public GameObject leftFoot;
@@ -31,7 +32,12 @@ public class CharacterAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        List<AnimalWander> dogz = new List<AnimalWander>();
+        foreach(var d in GameObject.FindGameObjectsWithTag("Dog"))
+        {
+            dogz.Add(d.GetComponentInChildren<AnimalWander>());
+        }
+        dogs = dogz.ToArray();
     }
 
     // Update is called once per frame
@@ -45,8 +51,19 @@ public class CharacterAnimator : MonoBehaviour
         bool waving = false;
         if (Input.GetKey(KeyCode.E))
         {
-            waving = true;
-            Debug.Log("WAVING");
+            if (!waving)
+            {
+                waving = true;
+                Debug.Log("WAVING");
+                foreach (AnimalWander dog in dogs)
+                {
+                    if (Mathf.Abs(Vector3.Distance(transform.position, dog.transform.position)) < 25f)
+                    {
+                        dog.WatchJas();
+                    }
+                }
+            }
+
         }
 
         if (direction.magnitude > 0.1f)
@@ -81,21 +98,15 @@ public class CharacterAnimator : MonoBehaviour
 
     private void Wave(float handBobSpeed, Transform hand, Transform handTarget)
     {
-        //get the objects current position and put it in a variable so we can access it later with less code
-        //calculate what the new Y position will be
         float newX = Mathf.Sin(Time.time * handBobSpeed) * 0.3f;
         Vector3 target = handTarget.position + (handTarget.right * newX);
-        //set the object's Y to the new calculated Y
         hand.transform.position = Vector3.MoveTowards(hand.transform.position, target, Time.deltaTime * moveHandSpeed);
     }
 
     private void BobHand(float handBobSpeed, Transform hand, Vector3 handTarget)
     {
-        //get the objects current position and put it in a variable so we can access it later with less code
-        //calculate what the new Y position will be
         float newY = Mathf.Sin(Time.time * handBobSpeed) * 0.1f;
         Vector3 target = new Vector3(handTarget.x, handTarget.y + newY, handTarget.z);
-        //set the object's Y to the new calculated Y
         hand.transform.position = Vector3.MoveTowards(hand.transform.position, target, Time.deltaTime * moveHandSpeed);
     }
 

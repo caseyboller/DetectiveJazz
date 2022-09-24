@@ -381,6 +381,8 @@ MonoBehaviour:
   backLeftFootTarget: {fileID: 894198788894001022}
   moveFootSpeed: 8
   rb: {fileID: 894198789247356590}
+  capsule: {fileID: 894198789247356591}
+  jas: {fileID: 0}
 --- !u!114 &894198789118486285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +398,7 @@ MonoBehaviour:
   moveSpeed: 3
   rotSpeed: 100
   isWalking: 0
+  isSitting: 0
 --- !u!1 &894198789122835548
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +507,7 @@ GameObject:
   - component: {fileID: 894198789130494074}
   m_Layer: 0
   m_Name: Dog
-  m_TagString: Untagged
+  m_TagString: Dog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

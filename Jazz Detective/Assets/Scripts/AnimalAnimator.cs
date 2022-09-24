@@ -17,6 +17,8 @@ public class AnimalAnimator : MonoBehaviour
     public float moveFootSpeed = 25f;
 
     public Rigidbody rb;
+    public Transform capsule;
+    public Transform jas;
 
     bool frontLeftFootMoving = false;
     bool frontRightFootMoving = false;
@@ -27,7 +29,8 @@ public class AnimalAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        jas = GameObject.FindGameObjectWithTag("Player").transform;
+        wander = GetComponent<AnimalWander>();
     }
 
     // Update is called once per frame
@@ -42,6 +45,19 @@ public class AnimalAnimator : MonoBehaviour
         {
             StandFeet(ref frontLeftFoot, ref frontRightFoot, ref frontLeftFootTarget, ref frontRightFootTarget, ref frontLeftFootMoving, ref frontRightFootMoving);
             StandFeet(ref backLeftFoot, ref backRightFoot, ref backLeftFootTarget, ref backRightFootTarget, ref backLeftFootMoving, ref backRightFootMoving);
+        }
+
+        if (wander.isSitting)
+        {
+            Vector3 lookPos = jas.position - rb.transform.position;
+            Vector3 rotation = Quaternion.LookRotation(lookPos).eulerAngles;
+            rotation.x = -90f;
+            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Quaternion.Euler(rotation), Time.deltaTime * 2f);
+        } else if (wander.isResettingRotation)
+        {
+            Vector3 rotation = Quaternion.LookRotation(transform.forward).eulerAngles;
+            rotation.x = -90f;
+            rb.transform.rotation = Quaternion.Slerp(rb.transform.rotation, Quaternion.Euler(rotation), Time.deltaTime * 2f);
         }
 
     }
