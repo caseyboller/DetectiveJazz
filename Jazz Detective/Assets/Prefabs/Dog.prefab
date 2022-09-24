@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 894198788825866181}
   - component: {fileID: 894198788825866182}
   m_Layer: 0
-  m_Name: Sphere (1)
+  m_Name: EyeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 894198788958941108}
   - component: {fileID: 894198788958941109}
   m_Layer: 0
-  m_Name: Capsule (2)
+  m_Name: EarRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 894198789118486287}
   - component: {fileID: 894198789118486286}
   - component: {fileID: 894198789118486285}
+  - component: {fileID: 7058994672321389249}
   m_Layer: 0
   m_Name: AnimalBase
   m_TagString: Untagged
@@ -394,6 +395,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 82ef7616bbf0c3046b5adab70160e4ea, type: 3}
   - {fileID: 8300000, guid: 870ddf76890cb6d48baa66045c3aaa93, type: 3}
   - {fileID: 8300000, guid: df31277e235c513418fec475784e7ce3, type: 3}
+  footStandThreshold: 0.5
+  footWalkThreshold: 1
+  footStopThreshold: 0.05
 --- !u!114 &894198789118486285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +415,38 @@ MonoBehaviour:
   isWalking: 0
   isSitting: 0
   isResettingRotation: 0
+--- !u!114 &7058994672321389249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894198789118486384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b04ae2dc5c520e54aa3fa4332234c65b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materials:
+  - {fileID: 2100000, guid: 753a919792d7b0746bb49656ef500d36, type: 2}
+  - {fileID: 2100000, guid: 85338a9acd3d36a4a9a5310f7485a185, type: 2}
+  - {fileID: 2100000, guid: fd5514457296e6941ba84932639a9b3c, type: 2}
+  - {fileID: 2100000, guid: 9b86fa3170c1f9548addcbfe9a166791, type: 2}
+  - {fileID: 2100000, guid: 07f5fedddfad36848b4fdb1e3850c293, type: 2}
+  accentMaterials:
+  - {fileID: 2100000, guid: 07f5fedddfad36848b4fdb1e3850c293, type: 2}
+  - {fileID: 2100000, guid: 85338a9acd3d36a4a9a5310f7485a185, type: 2}
+  baseParts:
+  - {fileID: 894198788686924904}
+  - {fileID: 894198789536427433}
+  - {fileID: 894198789122835548}
+  - {fileID: 894198789634865372}
+  - {fileID: 894198790031378419}
+  - {fileID: 894198789247356563}
+  accentParts:
+  - {fileID: 894198790551002273}
+  - {fileID: 894198788958941111}
+  - {fileID: 894198789278261831}
 --- !u!1 &894198789122835548
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +709,7 @@ GameObject:
   - component: {fileID: 894198789278261828}
   - component: {fileID: 894198789278261829}
   m_Layer: 0
-  m_Name: Capsule (3)
+  m_Name: EarLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -771,7 +807,7 @@ GameObject:
   - component: {fileID: 894198789380724289}
   - component: {fileID: 894198789380724290}
   m_Layer: 0
-  m_Name: Sphere (2)
+  m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1093,7 +1129,7 @@ GameObject:
   - component: {fileID: 894198789691673321}
   - component: {fileID: 894198789691673322}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: EyeRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,7 +1257,7 @@ GameObject:
   - component: {fileID: 894198789951266718}
   - component: {fileID: 894198789951266719}
   m_Layer: 0
-  m_Name: Capsule (1)
+  m_Name: Tongue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1319,7 +1355,7 @@ GameObject:
   - component: {fileID: 894198790031378416}
   - component: {fileID: 894198790031378417}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1454,7 +1490,7 @@ GameObject:
   - component: {fileID: 894198790551002302}
   - component: {fileID: 894198790551002303}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Snout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
