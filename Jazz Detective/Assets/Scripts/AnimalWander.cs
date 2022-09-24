@@ -53,10 +53,10 @@ public class AnimalWander : MonoBehaviour
     IEnumerator SitTime()
     {
         isSitting = true;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(9);
         isSitting = false;
         isResettingRotation = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         isResettingRotation = false;
     }
 

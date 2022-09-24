@@ -46,7 +46,6 @@ public class ThirdPersonMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
             controller.velocity = moveDir.normalized * speed;
-            Debug.Log(controller.velocity);
         } else
         {
             // Lean

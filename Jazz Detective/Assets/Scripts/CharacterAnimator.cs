@@ -21,13 +21,15 @@ public class CharacterAnimator : MonoBehaviour
     public float handBobHeight = 5f;
     public float moveHandSpeed = 25f;
 
+    private AudioSource audioSource;
+    public AudioClip[] audioClips;
+
     public Transform waveTarget;
 
     bool leftFootMoving = false;
     bool rightFootMoving = false;
 
     Vector3 direction;
-
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,7 @@ public class CharacterAnimator : MonoBehaviour
             dogz.Add(d.GetComponentInChildren<AnimalWander>());
         }
         dogs = dogz.ToArray();
+        audioSource = GetComponentInChildren<AudioSource>();
     }
 
     // Update is called once per frame
@@ -168,6 +171,7 @@ public class CharacterAnimator : MonoBehaviour
             else if (Vector3.Distance(rightFoot.transform.position, rightWalkTarget) < 0.1f)
             {
                 rightFootMoving = false;
+                audioSource.PlayOneShot(audioClips[UnityEngine.Random.Range(0, audioClips.Length-1)]);
             }
 
         }
@@ -186,6 +190,7 @@ public class CharacterAnimator : MonoBehaviour
             else if (Vector3.Distance(leftFoot.transform.position, leftWalkTarget) < 0.1f)
             {
                 leftFootMoving = false;
+                audioSource.PlayOneShot(audioClips[UnityEngine.Random.Range(0, audioClips.Length - 1)]);
             }
 
         }
