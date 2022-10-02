@@ -25,7 +25,7 @@ public class AnimalAnimator : MonoBehaviour
     bool backLeftFootMoving = false;
     bool backRightFootMoving = false;
 
-    private AudioSource audioSource;
+    public AudioSource audioSource;
     public AudioClip[] audioClips;
 
     public float footStandThreshold = 0.5f;
@@ -43,9 +43,6 @@ public class AnimalAnimator : MonoBehaviour
         lastPos = transform.position;
         jas = GameObject.FindGameObjectWithTag("Player").transform;
         wander = GetComponent<AnimalWander>();
-        audioSource = GetComponentInChildren<AudioSource>();
-
-
     }
 
     // Update is called once per frame

@@ -29,7 +29,7 @@ public class MusicManager : MonoBehaviour
     private void PlayMusic()
     {
         audioSource.Stop();
-        currentSong = songs[UnityEngine.Random.Range(0, 3)];
+        currentSong = songs[UnityEngine.Random.Range(0, songs.Length)];
         Debug.Log("Playing " + currentSong.name);
         audioSource.clip = currentSong;
         audioSource.Play();
