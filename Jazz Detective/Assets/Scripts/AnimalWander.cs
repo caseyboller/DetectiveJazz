@@ -22,7 +22,7 @@ public class AnimalWander : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Bark(5f, 120f, true));
+        StartCoroutine(Bark(5f, 60f, true));
     }
 
     // Update is called once per frame
@@ -55,7 +55,7 @@ public class AnimalWander : MonoBehaviour
     {
         if (!(isSitting || isResettingRotation))
         {
-            if (Random.Range(0, 2) == 1)
+            if (Random.Range(0, 3) > 1)
             {
                 StartCoroutine(Bark(0.5f, 5f, false));
             }

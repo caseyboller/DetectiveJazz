@@ -29,17 +29,27 @@ public class CharacterAnimator : MonoBehaviour
     bool leftFootMoving = false;
     bool rightFootMoving = false;
 
+    public GameObject[] chests;
+
     Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
     {
+        List<GameObject> chestz = new List<GameObject>();
+        foreach (var d in GameObject.FindGameObjectsWithTag("Chest"))
+        {
+            chestz.Add(d);
+        }
+        chests = chestz.ToArray();
+
         List<AnimalWander> dogz = new List<AnimalWander>();
         foreach(var d in GameObject.FindGameObjectsWithTag("Dog"))
         {
             dogz.Add(d.GetComponentInChildren<AnimalWander>());
         }
         dogs = dogz.ToArray();
+
         audioSource = GetComponentInChildren<AudioSource>();
     }
 
@@ -96,6 +106,18 @@ public class CharacterAnimator : MonoBehaviour
                 Wave(5f * handBobSpeed, rightHand, waveTarget);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            foreach (GameObject chest in chests)
+            {
+                if (Mathf.Abs(Vector3.Distance(transform.position, chest.transform.position)) < 5f)
+                {
+                    chest.GetComponentInParent<Rotator>().Open();
+                }
+            }
+        }
+
 
     }
 
