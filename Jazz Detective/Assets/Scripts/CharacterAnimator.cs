@@ -17,7 +17,7 @@ public class CharacterAnimator : MonoBehaviour
     public Transform rightHandRestTarget;
     public Transform leftHand;
     public Transform rightHand;
-    public float handBobSpeedDefault = 1f;
+    public float handBobSpeedDefault = 5f;
     public float handBobHeight = 5f;
     public float moveHandSpeed = 25f;
 
@@ -31,6 +31,7 @@ public class CharacterAnimator : MonoBehaviour
 
     public bool petting = false;
     Transform pettingTarget = null;
+    AnimalWander closestDog = null;
 
     public GameObject[] chests;
 
@@ -77,7 +78,7 @@ public class CharacterAnimator : MonoBehaviour
             {
                 waving = true;
                 rHandTarget = waveTarget;
-                Debug.Log("WAVING");
+
                 foreach (AnimalWander dog in dogs)
                 {
                     if (Mathf.Abs(Vector3.Distance(transform.position, dog.transform.position)) < 25f)
@@ -88,11 +89,10 @@ public class CharacterAnimator : MonoBehaviour
             }
         }
 
-        
+        bool closeDogFound = false;
         // Pet dog with hold F
         if (Input.GetKeyDown(KeyCode.F))
         {
-            AnimalWander closestDog = null;
             var closestDist = float.PositiveInfinity;
             foreach (AnimalWander dog in dogs)
             {
@@ -103,14 +103,16 @@ public class CharacterAnimator : MonoBehaviour
                     {
                         closestDog = dog;
                         closestDist = dist;
+                        closeDogFound = true;
                     }
                 }
             }
 
-            if (closestDog != null)
+            if (closeDogFound && closestDog != null)
             {
                 petting = true;
                 closestDog.WatchJas();
+                closestDog.SetBeingPet(true);
                 pettingTarget = closestDog.patTarget;
             }
         }
@@ -118,7 +120,15 @@ public class CharacterAnimator : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.F))
         {
             petting = false;
+            if (closestDog != null)
+            {
+                closestDog.SetBeingPet(false);
+            }
+
         }
+
+        //// HAND ANIMATION
+
 
 
         if (petting)
@@ -126,40 +136,51 @@ public class CharacterAnimator : MonoBehaviour
             rHandTarget = pettingTarget;
         }
 
-        var waveSpeedMod = 10f;
+        var handSpeedMod = 5f;
 
         if (direction.magnitude > 0.1f)
         {
-            lHandTarget = leftHandRestTarget.position - transform.forward * 1f;
-
             WalkFeet();
+
+            handSpeedMod = 10f;
+
+            // Always bob left hand
+            lHandTarget = leftHandRestTarget.position - transform.forward * 1f;
+            BobHand((handSpeedMod * 1.5f) * handBobSpeedDefault, leftHand, lHandTarget);
+
+            // Right hand state dependent
             if (!(waving || petting))
             {
-                BobHand(waveSpeedMod * handBobSpeedDefault, rightHand, rightHandRestTarget.position - transform.forward * 1f);
+                BobHand((handSpeedMod * 1.5f) * handBobSpeedDefault, rightHand, rightHandRestTarget.position - transform.forward * 1f);
             }
             else
             {
-                Wave(waveSpeedMod * handBobSpeedDefault, rightHand, rHandTarget);
+                Wave((handSpeedMod * 1.2f) * handBobSpeedDefault, rightHand, rHandTarget);
             }
 
         }
         else
         {
-            lHandTarget = leftHandRestTarget.position;
-
             StandFeet();
+            
+            // Always bob left hand
+            lHandTarget = leftHandRestTarget.position;
+            BobHand((handSpeedMod * 1f) * handBobSpeedDefault, leftHand, lHandTarget);
+
+            // Right hand state dependent
             if (!(waving || petting))
             {
-                BobHand(handBobSpeedDefault, rightHand, rightHandRestTarget.position);
+                BobHand((handSpeedMod * 1f) * handBobSpeedDefault, rightHand, rightHandRestTarget.position);
             }
             else
             {
-                Wave(waveSpeedMod * handBobSpeedDefault, rightHand, rHandTarget);
+                Wave((handSpeedMod * 1.2f) * handBobSpeedDefault, rightHand, rHandTarget);
             }
         }
 
-        //Always bob left hand
-        BobHand(5f * handBobSpeedDefault, leftHand, lHandTarget);
+
+
+
 
 
         // Open chests with press F

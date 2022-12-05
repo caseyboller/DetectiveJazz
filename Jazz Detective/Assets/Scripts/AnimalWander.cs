@@ -18,6 +18,10 @@ public class AnimalWander : MonoBehaviour
     public bool isSitting = false;
     public bool isResettingRotation = false;
 
+    public GameObject[] eyes;
+    public GameObject[] happyEyes;
+    public bool beingPet = false;
+
     public AudioClip[] barks;
     public AudioSource barkSource;
 
@@ -25,7 +29,9 @@ public class AnimalWander : MonoBehaviour
 
     private void Start()
     {
+        beingPet = false;
         StartCoroutine(Bark(5f, 60f, true));
+        StartCoroutine(BlinkRandom());
     }
 
     // Update is called once per frame
@@ -67,6 +73,48 @@ public class AnimalWander : MonoBehaviour
         }
     }
 
+    public void SetBeingPet(bool isBeingPet)
+    {
+        Debug.Log("SET " + gameObject.name + " BEING PET " + (isBeingPet ? " T " : " F "));
+        beingPet = isBeingPet;
+        SetEyesOpen(!isBeingPet);
+    }
+
+    public void SetEyesOpen(bool open)
+    {
+
+        // Open
+        foreach (var eye in eyes)
+        {
+            eye.SetActive(open);
+        }
+
+        // Squint
+        foreach (var eye in happyEyes)
+        {
+            eye.SetActive(!open);
+        }
+
+    }
+
+    IEnumerator BlinkRandom()
+    {
+        yield return new WaitForSeconds(Random.Range(2, 5));
+        if (!beingPet)
+        {
+            Debug.Log("BLINK");
+            SetEyesOpen(false);
+        }
+        yield return new WaitForSeconds(0.5f);
+        if (!beingPet)
+        {
+            Debug.Log("UNBLINK");
+
+            SetEyesOpen(true);
+        }
+        StartCoroutine(BlinkRandom());
+
+    }
     IEnumerator SitTime()
     {
         isSitting = true;

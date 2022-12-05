@@ -496,7 +496,7 @@ PrefabInstance:
     - target: {fileID: 2921275929919049854, guid: bbca1786f591ae24cad088b79156e37f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2921275929919049854, guid: bbca1786f591ae24cad088b79156e37f,
         type: 3}
@@ -5643,11 +5643,11 @@ MonoBehaviour:
   rightFootTarget: {fileID: 253692769}
   leftFootTarget: {fileID: 830741471}
   moveFootSpeed: 25
-  leftHandTarget: {fileID: 1097010829}
-  rightHandTarget: {fileID: 1298314061}
+  leftHandRestTarget: {fileID: 1097010829}
+  rightHandRestTarget: {fileID: 1298314061}
   leftHand: {fileID: 5038978234917559601}
   rightHand: {fileID: 4692845927424147394}
-  handBobSpeed: 4
+  handBobSpeedDefault: 1
   handBobHeight: 5
   moveHandSpeed: 25
   audioClips:
@@ -5657,6 +5657,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 870ddf76890cb6d48baa66045c3aaa93, type: 3}
   - {fileID: 8300000, guid: df31277e235c513418fec475784e7ce3, type: 3}
   waveTarget: {fileID: 386307006}
+  petting: 0
   chests: []
 --- !u!4 &1527172501
 Transform:
