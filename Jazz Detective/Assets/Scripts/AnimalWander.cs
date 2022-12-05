@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class AnimalWander : MonoBehaviour
 {
+
+    public Transform patTarget;
+
     public float moveSpeed = 3f;
     public float rotSpeed = 100f;
 

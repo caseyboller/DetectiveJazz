@@ -13,11 +13,11 @@ public class CharacterAnimator : MonoBehaviour
     public Transform leftFootTarget;
     public float moveFootSpeed = 25f;
 
-    public Transform leftHandTarget;
-    public Transform rightHandTarget;
+    public Transform leftHandRestTarget;
+    public Transform rightHandRestTarget;
     public Transform leftHand;
     public Transform rightHand;
-    public float handBobSpeed = 1f;
+    public float handBobSpeedDefault = 1f;
     public float handBobHeight = 5f;
     public float moveHandSpeed = 25f;
 
@@ -29,7 +29,12 @@ public class CharacterAnimator : MonoBehaviour
     bool leftFootMoving = false;
     bool rightFootMoving = false;
 
+    public bool petting = false;
+    Transform pettingTarget = null;
+
     public GameObject[] chests;
+
+
 
     Vector3 direction;
 
@@ -44,7 +49,7 @@ public class CharacterAnimator : MonoBehaviour
         chests = chestz.ToArray();
 
         List<AnimalWander> dogz = new List<AnimalWander>();
-        foreach(var d in GameObject.FindGameObjectsWithTag("Dog"))
+        foreach (var d in GameObject.FindGameObjectsWithTag("Dog"))
         {
             dogz.Add(d.GetComponentInChildren<AnimalWander>());
         }
@@ -57,6 +62,10 @@ public class CharacterAnimator : MonoBehaviour
     void Update()
     {
 
+        Transform rHandTarget = rightHandRestTarget;
+        Vector3 lHandTarget;
+
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         direction = new Vector3(horizontal, 0, vertical).normalized;
@@ -67,6 +76,7 @@ public class CharacterAnimator : MonoBehaviour
             if (!waving)
             {
                 waving = true;
+                rHandTarget = waveTarget;
                 Debug.Log("WAVING");
                 foreach (AnimalWander dog in dogs)
                 {
@@ -76,49 +86,95 @@ public class CharacterAnimator : MonoBehaviour
                     }
                 }
             }
-
         }
+
+        
+        // Pet dog with hold F
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AnimalWander closestDog = null;
+            var closestDist = float.PositiveInfinity;
+            foreach (AnimalWander dog in dogs)
+            {
+                var dist = Mathf.Abs(Vector3.Distance(transform.position, dog.transform.position));
+                if (dist < 5f)
+                {
+                    if (closestDog == null || dist < closestDist)
+                    {
+                        closestDog = dog;
+                        closestDist = dist;
+                    }
+                }
+            }
+
+            if (closestDog != null)
+            {
+                petting = true;
+                closestDog.WatchJas();
+                pettingTarget = closestDog.patTarget;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            petting = false;
+        }
+
+
+        if (petting)
+        {
+            rHandTarget = pettingTarget;
+        }
+
+        var waveSpeedMod = 10f;
 
         if (direction.magnitude > 0.1f)
         {
+            lHandTarget = leftHandRestTarget.position - transform.forward * 1f;
+
             WalkFeet();
-                BobHand(5f * handBobSpeed, leftHand, leftHandTarget.position - transform.forward * 1f);
-            if (!waving)
+            if (!(waving || petting))
             {
-                BobHand(5f * handBobSpeed, rightHand, rightHandTarget.position - transform.forward * 1f);
+                BobHand(waveSpeedMod * handBobSpeedDefault, rightHand, rightHandRestTarget.position - transform.forward * 1f);
             }
             else
             {
-                Wave(5f * handBobSpeed, rightHand, waveTarget);
+                Wave(waveSpeedMod * handBobSpeedDefault, rightHand, rHandTarget);
             }
 
         }
         else
         {
+            lHandTarget = leftHandRestTarget.position;
+
             StandFeet();
-            BobHand(handBobSpeed, leftHand, leftHandTarget.position);
-            if (!waving)
+            if (!(waving || petting))
             {
-                BobHand(handBobSpeed, rightHand, rightHandTarget.position);
+                BobHand(handBobSpeedDefault, rightHand, rightHandRestTarget.position);
             }
             else
             {
-                Wave(5f * handBobSpeed, rightHand, waveTarget);
+                Wave(waveSpeedMod * handBobSpeedDefault, rightHand, rHandTarget);
             }
         }
 
+        //Always bob left hand
+        BobHand(5f * handBobSpeedDefault, leftHand, lHandTarget);
+
+
+        // Open chests with press F
+        bool chestOpened = false;
         if (Input.GetKeyDown(KeyCode.F))
         {
             foreach (GameObject chest in chests)
             {
-                if (Mathf.Abs(Vector3.Distance(transform.position, chest.transform.position)) < 5f)
+                if (!chestOpened && Mathf.Abs(Vector3.Distance(transform.position, chest.transform.position)) < 5f)
                 {
                     chest.GetComponentInParent<Rotator>().Open();
+                    chestOpened = true;
                 }
             }
         }
-
-
     }
 
     private void Wave(float handBobSpeed, Transform hand, Transform handTarget)
@@ -193,7 +249,7 @@ public class CharacterAnimator : MonoBehaviour
             else if (Vector3.Distance(rightFoot.transform.position, rightWalkTarget) < 0.1f)
             {
                 rightFootMoving = false;
-                audioSource.PlayOneShot(audioClips[UnityEngine.Random.Range(0, audioClips.Length-1)]);
+                audioSource.PlayOneShot(audioClips[UnityEngine.Random.Range(0, audioClips.Length - 1)]);
             }
 
         }
