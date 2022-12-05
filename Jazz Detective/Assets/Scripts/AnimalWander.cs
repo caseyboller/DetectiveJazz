@@ -75,7 +75,6 @@ public class AnimalWander : MonoBehaviour
 
     public void SetBeingPet(bool isBeingPet)
     {
-        Debug.Log("SET " + gameObject.name + " BEING PET " + (isBeingPet ? " T " : " F "));
         beingPet = isBeingPet;
         SetEyesOpen(!isBeingPet);
     }
@@ -102,19 +101,16 @@ public class AnimalWander : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(2, 5));
         if (!beingPet)
         {
-            Debug.Log("BLINK");
             SetEyesOpen(false);
         }
         yield return new WaitForSeconds(0.5f);
         if (!beingPet)
         {
-            Debug.Log("UNBLINK");
-
             SetEyesOpen(true);
         }
         StartCoroutine(BlinkRandom());
-
     }
+
     IEnumerator SitTime()
     {
         isSitting = true;

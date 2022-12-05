@@ -7,6 +7,9 @@ public class CharacterAnimator : MonoBehaviour
 {
     public AnimalWander[] dogs;
 
+    public GameObject[] eyes;
+    public GameObject[] happyEyes;
+
     public GameObject rightFoot;
     public GameObject leftFoot;
     public Transform rightFootTarget;
@@ -57,6 +60,8 @@ public class CharacterAnimator : MonoBehaviour
         dogs = dogz.ToArray();
 
         audioSource = GetComponentInChildren<AudioSource>();
+
+        StartCoroutine(BlinkRandom());
     }
 
     // Update is called once per frame
@@ -162,7 +167,7 @@ public class CharacterAnimator : MonoBehaviour
         else
         {
             StandFeet();
-            
+
             // Always bob left hand
             lHandTarget = leftHandRestTarget.position;
             BobHand((handSpeedMod * 1f) * handBobSpeedDefault, leftHand, lHandTarget);
@@ -177,10 +182,6 @@ public class CharacterAnimator : MonoBehaviour
                 Wave((handSpeedMod * 1.2f) * handBobSpeedDefault, rightHand, rHandTarget);
             }
         }
-
-
-
-
 
 
         // Open chests with press F
@@ -293,5 +294,31 @@ public class CharacterAnimator : MonoBehaviour
             }
 
         }
+    }
+
+    public void SetEyesOpen(bool open)
+    {
+
+        // Open
+        foreach (var eye in eyes)
+        {
+            eye.SetActive(open);
+        }
+
+        // Squint
+        foreach (var eye in happyEyes)
+        {
+            eye.SetActive(!open);
+        }
+
+    }
+
+    IEnumerator BlinkRandom()
+    {
+        yield return new WaitForSeconds(UnityEngine.Random.Range(10, 30));
+        SetEyesOpen(false);
+        yield return new WaitForSeconds(0.5f);
+        SetEyesOpen(true);
+        StartCoroutine(BlinkRandom());
     }
 }
