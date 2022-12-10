@@ -27,8 +27,11 @@ public class AnimalWander : MonoBehaviour
 
     public GameObject barkExclamation;
 
+    public DogsPetHandler dogHandler;
+
     private void Start()
     {
+        dogHandler = GameObject.FindGameObjectWithTag("DogsPetHandler").GetComponent<DogsPetHandler>();
         beingPet = false;
         StartCoroutine(Bark(5f, 60f, true));
         StartCoroutine(BlinkRandom());
@@ -77,6 +80,10 @@ public class AnimalWander : MonoBehaviour
     {
         beingPet = isBeingPet;
         SetEyesOpen(!isBeingPet);
+        if (isBeingPet)
+        {
+            dogHandler.PetDog(transform.parent.gameObject);
+        }
     }
 
     public void SetEyesOpen(bool open)

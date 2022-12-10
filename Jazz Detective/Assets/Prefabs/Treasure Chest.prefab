@@ -177,9 +177,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2921275929919049854}
   - component: {fileID: 2921275929919049849}
+  - component: {fileID: 731575317103302003}
   m_Layer: 0
   m_Name: Treasure Chest
-  m_TagString: Untagged
+  m_TagString: Chest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,6 +218,21 @@ MonoBehaviour:
   rotating: 0
   opening: 0
   hasBeenOpened: 0
+  chestHandler: {fileID: 0}
+--- !u!114 &731575317103302003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2576521157935696580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46326ab6556a83a4e8fdef99248b175c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  text: I'm a note!
 --- !u!1 &2633671242066298353
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +248,7 @@ GameObject:
   - component: {fileID: 7279650956232965511}
   m_Layer: 0
   m_Name: chest
-  m_TagString: Chest
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

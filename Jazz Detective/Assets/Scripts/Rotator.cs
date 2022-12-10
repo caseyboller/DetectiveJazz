@@ -12,6 +12,13 @@ public class Rotator : MonoBehaviour
 
     public bool hasBeenOpened = false;
 
+    public ChestsOpenedHandler chestHandler;
+
+    private void Start()
+    {
+        chestHandler = GameObject.FindGameObjectWithTag("ChestsOpenedHandler").GetComponent<ChestsOpenedHandler>();
+    }
+
     private void Update()
     {
         if (rotating)
@@ -42,6 +49,7 @@ public class Rotator : MonoBehaviour
 
     public void Open()
     {
+        chestHandler.OpenChest(gameObject.GetComponent<ChestDetails>());
         rotating = true;
         opening = true;
         StartCoroutine(Close());
