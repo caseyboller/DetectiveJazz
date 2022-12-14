@@ -26,6 +26,7 @@ public class AnimalWander : MonoBehaviour
     public AudioSource barkSource;
 
     public GameObject barkExclamation;
+    public GameObject helpExclamation;
 
     public DogsPetHandler dogHandler;
 
@@ -83,6 +84,7 @@ public class AnimalWander : MonoBehaviour
         if (isBeingPet)
         {
             dogHandler.PetDog(transform.parent.gameObject);
+            helpExclamation.SetActive(false);
         }
     }
 

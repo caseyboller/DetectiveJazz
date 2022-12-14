@@ -38,7 +38,8 @@ public class CharacterAnimator : MonoBehaviour
 
     public GameObject[] chests;
 
-
+    public bool helpEnabled = false;
+    public DogsPetHandler dogsPetHandler;
 
     Vector3 direction;
 
@@ -60,6 +61,7 @@ public class CharacterAnimator : MonoBehaviour
         dogs = dogz.ToArray();
 
         audioSource = GetComponentInChildren<AudioSource>();
+        dogsPetHandler = GameObject.FindGameObjectWithTag("DogsPetHandler").GetComponent<DogsPetHandler>();
 
         StartCoroutine(BlinkRandom());
     }
@@ -75,6 +77,12 @@ public class CharacterAnimator : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         direction = new Vector3(horizontal, 0, vertical).normalized;
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            helpEnabled = !helpEnabled;
+            dogsPetHandler.ToggleHelp(helpEnabled);
+        }
 
         bool waving = false;
         if (Input.GetKey(KeyCode.E))

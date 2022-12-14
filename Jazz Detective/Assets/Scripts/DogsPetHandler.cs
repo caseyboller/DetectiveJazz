@@ -22,6 +22,18 @@ public class DogsPetHandler : MonoBehaviour
         UpdateText();
     }
 
+    public void ToggleHelp(bool enable)
+    {
+        foreach (var pair in dogs)
+        {
+            if (pair.Value == false)
+            {
+                pair.Key.GetComponentInChildren<AnimalWander>()
+                    .helpExclamation.SetActive(enable);
+            }
+        }
+    }
+
     public void PetDog(GameObject dog)
     {
         Debug.Log("Pet dog  " + dog.name);
