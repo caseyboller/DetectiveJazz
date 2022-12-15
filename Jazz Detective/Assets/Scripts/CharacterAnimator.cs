@@ -78,6 +78,11 @@ public class CharacterAnimator : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         direction = new Vector3(horizontal, 0, vertical).normalized;
 
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            StartCoroutine(Blink());
+        }
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             helpEnabled = !helpEnabled;
@@ -323,10 +328,16 @@ public class CharacterAnimator : MonoBehaviour
 
     IEnumerator BlinkRandom()
     {
-        yield return new WaitForSeconds(UnityEngine.Random.Range(10, 30));
-        SetEyesOpen(false);
-        yield return new WaitForSeconds(0.5f);
-        SetEyesOpen(true);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(5, 15));
+        StartCoroutine(Blink());
         StartCoroutine(BlinkRandom());
     }
+
+    IEnumerator Blink()
+    {
+        SetEyesOpen(false);
+        yield return new WaitForSeconds(0.25f);
+        SetEyesOpen(true);
+    }
+
 }
