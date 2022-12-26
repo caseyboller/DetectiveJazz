@@ -8,6 +8,7 @@ TagManager:
   - Chest
   - DogsPetHandler
   - ChestsOpenedHandler
+  - NoteHandler
   layers:
   - Default
   - TransparentFX

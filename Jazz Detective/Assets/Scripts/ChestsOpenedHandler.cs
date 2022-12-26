@@ -8,6 +8,8 @@ public class ChestsOpenedHandler : MonoBehaviour
 
     public Dictionary<ChestDetails, bool> chests = new Dictionary<ChestDetails, bool>();
 
+    public MoveToCenter note;
+
 
     private TextMeshProUGUI textUI;
 
@@ -31,9 +33,16 @@ public class ChestsOpenedHandler : MonoBehaviour
             {
                 chests[chest] = true;
                 UpdateText();
+                ShowNote(chest);
+                StartCoroutine(ActivateItem(chest));
                 Debug.Log("Chest opened " + chest.text);
             }
         }
+    }
+
+    private void ShowNote(ChestDetails chest)
+    {
+        note.OpenClose(chest);
     }
 
     private void UpdateText()
@@ -47,5 +56,15 @@ public class ChestsOpenedHandler : MonoBehaviour
             }
         }
         textUI.text = "chests opened: " + chestsOpened + "/" + chests.Keys.Count;
+    }
+
+    IEnumerator ActivateItem(ChestDetails chest)
+    {
+        yield return new WaitForSeconds(3);
+        if (chest.item != null)
+        {
+            chest.item.SetActive(true);
+        }
+        
     }
 }
