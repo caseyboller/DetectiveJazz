@@ -9,6 +9,9 @@ public class MoveToCenter : MonoBehaviour
     public TextMeshProUGUI text;
     public Vector3 startPos = new Vector3(0, -500, 0);
 
+    public AudioSource audioSource;
+    public AudioClip[] audioClips;
+
     public bool isShowing;
 
     public void OpenClose(ChestDetails chest)
@@ -22,6 +25,8 @@ public class MoveToCenter : MonoBehaviour
         // Calculate the new position for the UI element in the center of the screen
         Vector3 newPos = new Vector3(Screen.width / 2, Screen.height / 2, startPos.z);
 
+        audioSource.PlayOneShot(audioClips[0]);
+
         // Use LeanTween to smoothly move the UI element along the curved path
         LeanTween.move(gameObject, newPos, duration)
                  .setDelay(delay)
@@ -34,6 +39,7 @@ public class MoveToCenter : MonoBehaviour
         {
             return;
         }
+        audioSource.PlayOneShot(audioClips[1]);
 
         isShowing = false;
         // Use LeanTween to smoothly move the UI element along the curved path

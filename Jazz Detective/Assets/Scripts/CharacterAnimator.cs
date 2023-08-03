@@ -41,7 +41,6 @@ public class CharacterAnimator : MonoBehaviour
     public bool helpEnabled = false;
     public DogsPetHandler dogsPetHandler;
 
-    public MoveToCenter noteHandler;
 
     Vector3 direction;
 
@@ -79,11 +78,6 @@ public class CharacterAnimator : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         direction = new Vector3(horizontal, 0, vertical).normalized;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            noteHandler.MoveOut();
-        }
 
         if (Input.GetKeyDown(KeyCode.B))
         {

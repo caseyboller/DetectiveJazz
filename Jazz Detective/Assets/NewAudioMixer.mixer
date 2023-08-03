@@ -14,6 +14,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &-6067909304974336446
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 505e6281ab217654d9c3f9346869eef3
+  m_EffectName: Attenuation
+  m_MixLevel: 642c8d6942d18b2418c3d4c3dd62823f
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &-5106530839791161079
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -28,6 +42,25 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &-3544803361157834941
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Scrunch
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 919f2978ac76cac48b93afb3328c43e8
+  m_Children: []
+  m_Volume: 7b6f19f4b51ab934fbffec9c2c1316b2
+  m_Pitch: a29190a93fbde024f9d8814fa52d855b
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -6067909304974336446}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!243 &-3117249878033553218
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -89,6 +122,7 @@ AudioMixerController:
     - 11dfd8247f291fc40bd86ebcc7757785
     - edd584ff9202583429795bae96aabe0e
     - 2d84c598f4e79ae408efd7202eb83586
+    - 919f2978ac76cac48b93afb3328c43e8
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -105,6 +139,7 @@ AudioMixerGroupController:
   - {fileID: 2181022539387754761}
   - {fileID: -3117249878033553218}
   - {fileID: 6319777366751851840}
+  - {fileID: -3544803361157834941}
   - {fileID: -2008628820214690929}
   m_Volume: bee42af6a29e96c468bff899f26ca1ea
   m_Pitch: 572dcaf490a0df3438890a5b621c9b2b
@@ -140,6 +175,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: 96a13cfe09f78d44a95e775b1986e22e
   m_FloatValues:
     97824324b8a0533418ae9545621a66f9: 2.9
+    7b6f19f4b51ab934fbffec9c2c1316b2: 1.5
     572dcaf490a0df3438890a5b621c9b2b: 1
     99f23836c61d0984ca80c39abdad5cec: -11.4
     bee42af6a29e96c468bff899f26ca1ea: 1.5
