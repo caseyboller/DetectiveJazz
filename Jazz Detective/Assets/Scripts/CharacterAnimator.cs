@@ -47,6 +47,9 @@ public class CharacterAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         List<GameObject> chestz = new List<GameObject>();
         foreach (var d in GameObject.FindGameObjectsWithTag("Chest"))
         {

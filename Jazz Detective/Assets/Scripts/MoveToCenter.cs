@@ -14,8 +14,17 @@ public class MoveToCenter : MonoBehaviour
 
     public bool isShowing;
 
+    private void Start()
+    {
+        startPos = new Vector3(0, -Screen.height, 0);
+        transform.position = startPos;
+    }
+
     public void OpenClose(ChestDetails chest)
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+
         isShowing = true;
         gameObject.SetActive(true);
         text.text = chest.text.text;
@@ -35,6 +44,9 @@ public class MoveToCenter : MonoBehaviour
 
     public void MoveOut()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (!isShowing)
         {
             return;
