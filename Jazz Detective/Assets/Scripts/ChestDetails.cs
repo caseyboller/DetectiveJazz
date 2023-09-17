@@ -6,5 +6,5 @@ using UnityEngine.UI;
 public class ChestDetails : MonoBehaviour
 {
     public GameObject item;
-    public Text text;
+    public GameObject panel;
 }

@@ -7,6 +7,10 @@ public class DogsPetHandler : MonoBehaviour
 {
 
     public Dictionary<GameObject, bool> dogs = new Dictionary<GameObject, bool>();
+
+    public AudioSource celebration;
+
+    public GameObject celebrationTextTmp;
     
 
     private TextMeshProUGUI textUI;
@@ -57,5 +61,11 @@ public class DogsPetHandler : MonoBehaviour
         }
         Debug.Log("Dogs pet: " + dogsPet);
         textUI.text = "dogs pet: " + dogsPet + "/" + dogs.Keys.Count;
+
+        if (dogsPet >= dogs.Keys.Count)
+        {
+            celebration.Play();
+            celebrationTextTmp.SetActive(true);
+        }
     }
 }

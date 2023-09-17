@@ -14,6 +14,8 @@ public class MoveToCenter : MonoBehaviour
 
     public bool isShowing;
 
+    public GameObject[] panels;
+
     private void Start()
     {
         startPos = new Vector3(0, -Screen.height, 0);
@@ -27,7 +29,13 @@ public class MoveToCenter : MonoBehaviour
 
         isShowing = true;
         gameObject.SetActive(true);
-        text.text = chest.text.text;
+
+        foreach (GameObject go in panels)
+        {
+            go.SetActive(false);
+        }
+
+        chest.panel.SetActive(true);
 
         transform.position = startPos;
 

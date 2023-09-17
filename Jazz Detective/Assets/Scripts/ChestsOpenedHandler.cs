@@ -35,7 +35,6 @@ public class ChestsOpenedHandler : MonoBehaviour
                 UpdateText();
                 ShowNote(chest);
                 StartCoroutine(ActivateItem(chest));
-                Debug.Log("Chest opened " + chest.text);
             }
         }
     }
